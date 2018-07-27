@@ -12,6 +12,7 @@ public class ProjectileController : MonoBehaviour {
 		
 		for(int i=0;i<4;i++)
 		{
+			gameObject.transform.GetChild(i).gameObject.SetActive(true);
 			if(i==0)
 				gameObject.transform.GetChild(i).GetComponent<ProjectileProperties>().currentDirection=ProjectileProperties.PRO_DRIECTION.LEFT;
 			else if(i==1)
@@ -22,4 +23,8 @@ public class ProjectileController : MonoBehaviour {
 				gameObject.transform.GetChild(i).GetComponent<ProjectileProperties>().currentDirection=ProjectileProperties.PRO_DRIECTION.BOTTOM;
 		}
 	}
+	public void OnCollisionEnter2D(Collision2D coll) 
+		{
+			Debug.Log("someting hit");
+		}
 }

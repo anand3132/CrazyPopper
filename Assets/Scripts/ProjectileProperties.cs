@@ -11,7 +11,8 @@ public class ProjectileProperties : MonoBehaviour {
 		,BOTTOM
 	}
 
-	private  Vector3 direction;
+	public  Vector3 direction;
+	public float speed=3;
 	//set default direction to top
 	public PRO_DRIECTION currentDirection=PRO_DRIECTION.TOP;
 
@@ -32,6 +33,6 @@ public class ProjectileProperties : MonoBehaviour {
 	}
 
 	void Update () {
-		gameObject.transform.Translate(direction*Time.deltaTime);
+		gameObject.transform.Translate(direction*Time.deltaTime*speed);
 	}
 }
