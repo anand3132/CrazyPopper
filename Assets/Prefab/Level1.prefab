@@ -578,7 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4433229653833048}
   - component: {fileID: 212124200561876228}
-  - component: {fileID: 65776224391291592}
+  - component: {fileID: 61091711822070036}
   m_Layer: 0
   m_Name: popperBlue
   m_TagString: Untagged
@@ -629,7 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4715796223139888}
   - component: {fileID: 212786858955900544}
-  - component: {fileID: 65239396732833850}
+  - component: {fileID: 61529673328817932}
   m_Layer: 0
   m_Name: popperYellow
   m_TagString: Untagged
@@ -1007,7 +1007,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4767422377174550}
   - component: {fileID: 212571645752204370}
-  - component: {fileID: 65503204034625998}
+  - component: {fileID: 61819723571502120}
   m_Layer: 0
   m_Name: popperPurple
   m_TagString: Untagged
@@ -1477,7 +1477,7 @@ Transform:
   - {fileID: 4184512218933220}
   - {fileID: 4555991542033378}
   m_Father: {fileID: 4905827496964592}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4095848942747308
 Transform:
@@ -1850,7 +1850,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1416350192369974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.535, y: 0.8875, z: 0}
+  m_LocalPosition: {x: 1.39, y: 0.8875, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4925134996213120}
@@ -1926,7 +1926,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4905827496964592}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4427071908881890
 Transform:
@@ -2137,7 +2137,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1405555657843822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5125, y: -0.8075, z: 0}
+  m_LocalPosition: {x: 1.46, y: -0.8075, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4245046253181124}
@@ -2518,8 +2518,8 @@ Transform:
   - {fileID: 4433229653833048}
   - {fileID: 4767422377174550}
   - {fileID: 4715796223139888}
-  - {fileID: 4066368273564790}
   - {fileID: 4425876394201210}
+  - {fileID: 4066368273564790}
   m_Father: {fileID: 4046858878288370}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2601,6 +2601,81 @@ Transform:
   m_Father: {fileID: 4135914550600690}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61091711822070036
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1442568641661382}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.55, y: 0.35}
+    newSize: {x: 0.55, y: 0.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.35}
+  m_EdgeRadius: 0
+--- !u!61 &61529673328817932
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1455455439696896}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.55, y: 0.35}
+    newSize: {x: 0.55, y: 0.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.35}
+  m_EdgeRadius: 0
+--- !u!61 &61819723571502120
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1675610106649468}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.55, y: 0.35}
+    newSize: {x: 0.55, y: 0.35}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.35}
+  m_EdgeRadius: 0
 --- !u!65 &65016315652359520
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2739,18 +2814,6 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1337645331842304}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.35, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65239396732833850
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1455455439696896}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -2901,18 +2964,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.35, y: 0.35, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65503204034625998
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1675610106649468}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.35, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65505215654725992
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3027,18 +3078,6 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276912178090962}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.35, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65776224391291592
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1442568641661382}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -3200,6 +3239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 0
+  maxHit: 1
+  explotion: {fileID: 0}
+  ProjectileParent: {fileID: 0}
 --- !u!114 &114211762157390696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3211,6 +3254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 0
+  maxHit: 1
+  explotion: {fileID: 0}
+  ProjectileParent: {fileID: 0}
 --- !u!114 &114299869282639330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3222,6 +3269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 0
+  maxHit: 1
+  explotion: {fileID: 0}
+  ProjectileParent: {fileID: 0}
 --- !u!114 &114306158832519850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3233,6 +3284,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 0
+  maxHit: 1
+  explotion: {fileID: 0}
+  ProjectileParent: {fileID: 0}
 --- !u!114 &114319766529786338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3244,6 +3299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 1
+  maxHit: 1
+  explotion: {fileID: 1935793089045064}
+  ProjectileParent: {fileID: 1437955679105666}
 --- !u!114 &114450052056777208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3255,6 +3314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 0
+  maxHit: 1
+  explotion: {fileID: 0}
+  ProjectileParent: {fileID: 0}
 --- !u!114 &114757463421641602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3266,6 +3329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPoperType: 0
+  maxHit: 1
+  explotion: {fileID: 0}
+  ProjectileParent: {fileID: 0}
 --- !u!212 &212012934934224844
 SpriteRenderer:
   m_ObjectHideFlags: 1
