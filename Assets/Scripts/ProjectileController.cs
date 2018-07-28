@@ -8,7 +8,7 @@ public class ProjectileController : MonoBehaviour {
 		
 	}
 
-	public void startExplotion(){
+	public void StartExplotion(){
 		
 		for(int i=0;i<4;i++)
 		{
@@ -23,6 +23,7 @@ public class ProjectileController : MonoBehaviour {
 				gameObject.transform.GetChild(i).GetComponent<ProjectileProperties>().currentDirection=ProjectileProperties.PRO_DRIECTION.BOTTOM;
 		}
 	}
+
 	public void OnCollisionEnter2D(Collision2D coll) 
 		{
 			Debug.Log("someting hit");

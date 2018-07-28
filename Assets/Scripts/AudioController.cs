@@ -5,8 +5,8 @@ using UnityEngine;
 public class AudioController : MonoBehaviour {
 
 	public AudioClip au_failed_clip;
-	public AudioController au_Leve_complete;
-	public AudioController au_popup;
+	public AudioClip au_Leve_complete;
+	public AudioClip au_popup;
 	// Use this for initialization
 	void Start () {
 		

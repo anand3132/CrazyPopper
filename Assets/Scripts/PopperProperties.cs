@@ -21,7 +21,7 @@ public class PopperProperties : MonoBehaviour {
 	[SerializeField]
 	int life=1;
 	int currentHit;
-
+	private bool levelDelayer;
 	public GameObject bluePopper;
 	public GameObject yelloPopper;
 	public GameObject purplePopper;
@@ -68,19 +68,63 @@ public class PopperProperties : MonoBehaviour {
 				// changing state to destroy.
 				currentPopper.SetActive(false);
 				LevelProperties.GetInstance().DecrementPopperCountByOne();
-				gameObject.GetComponentInChildren<ProjectileController>().startExplotion();
-				explotion.SetActive(true);
+				projectileParent.SetActive(true);
+				gameObject.GetComponentInChildren<ProjectileController>().StartExplotion();
+				//explotion.SetActive(true);
 				SetState(POPPER_STATE.INACTIVE);
+				StartCoroutine("WaitForLevelAnimation"); 
 				break;
 			}
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
+	IEnumerator WaitForLevelAnimation(){
+		yield return new WaitForSeconds(3f);
+		GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_RESULTS);
+
+	}
+	void OnPopperHit(){
+		ReduceLifeByOne();
+		currentPopper.SetActive(false);
+		switch (life){
+			case 0:
+			{
+				currentPopper=explotion;
+				SetState(POPPER_STATE.DESTROY);
+				OnStateChange(prevState);
+			}
+			break;
+
+			case 1:
+			{		
+				currentPopper=purplePopper;
+			}
+			break;
+			case 2:
+			{
+				currentPopper=bluePopper;
+			}
+			break;
+		}
+		currentPopper.SetActive(true);
+	}
+
+	void ResetPopper(){
 		bluePopper.gameObject.SetActive(false);
 		yelloPopper.gameObject.SetActive(false);
 		purplePopper.gameObject.SetActive(false);
+		explotion.gameObject.SetActive(false);
+		leftEye.gameObject.SetActive(false);
+		rightEye.gameObject.SetActive(false);
+		projectileParent.gameObject.SetActive(false);
+	}
+
+	void Awake() {
+		levelDelayer=true;
+	}
+	void Start () {
+		ResetPopper();
+		levelDelayer=true;
 		if(currentPoperType==POPPER_TYPE.POPPER_PURPLE)
 		{
 			life=1;
@@ -98,6 +142,9 @@ public class PopperProperties : MonoBehaviour {
 		}
 		currentHit=life;
 		currentPopper.SetActive(true);
+		leftEye.SetActive(true);
+		rightEye.SetActive(true);
+
 		leftEyeInitScale = leftEye.transform.localScale;
 		rightEyeInitScale = rightEye.transform.localScale;
 
@@ -106,12 +153,12 @@ public class PopperProperties : MonoBehaviour {
 		eyeScale = Random.Range(0.2f, eyeScaleAnimThreshold);
 		eyeScaleAnimSpeed = Random.Range(0.1f, eyeScaleAnimSpeed);
 		SetState(POPPER_STATE.ACTIVE);
+
+		StartCoroutine("EnableLevelAfterDelay", 1.5f);
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		OnInput();
-
 		switch (currentState) {
 		case POPPER_STATE.ACTIVE: {
 				eyeScale+=eyeScaleAnimSpeed*Time.deltaTime;
@@ -132,7 +179,7 @@ public class PopperProperties : MonoBehaviour {
 				if (plukScale<0.0f) {
 					plukScale=0.0f;
 				}
-				Debug.Log("pluk "+plukScale);
+			//	Debug.Log("pluk "+plukScale);
 				gameObject.transform.localScale = initScale + Vector3.one*plukScale;
 			}
 		}
@@ -142,47 +189,57 @@ public class PopperProperties : MonoBehaviour {
 		plukScale = 0.45f;
 	}
 
-	public void setPoperType(POPPER_TYPE setType){
+	public void SetPoperType(POPPER_TYPE setType){
 		currentPoperType=setType;
 	}
 
 	public POPPER_TYPE getpoperType(){
 		return currentPoperType;
 	}
+
+	IEnumerator EnableLevelAfterDelay(float delay){
+		
+		yield return new WaitForSeconds(delay);
+		levelDelayer=false;
+		Debug.Log("Delay Finished");
+	}
+
 	void OnInput(){
-		if (!IsActive()) {
+		if (!IsActive() || levelDelayer) {
 			return;
 		}
 
-		if(Input .GetMouseButtonUp(0)||Input.touchCount>0){
+		if(Input .GetMouseButtonUp(0)||Input.touchCount>0 
+			&& GameController.GetInstance().GetGameState()==GameController.GAME_STATE.GAME_GAMEPLAY){
 			Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero);
 			if (hit != null && hit.collider != null) {
-				var hitObject = hit.collider.gameObject.GetComponentInChildren<ProjectileController>();
+				var hitObject = hit.collider.gameObject.GetComponentInChildren<ProjectileController>(true);
+				Debug.Log ("All Hit " + hit.collider.name +" to "+gameObject.name );
 				if(hitObject!=null && hit.collider.gameObject==gameObject)
 				{
 					Debug.Log ("I'm hitting "+hit.collider.name + " , " + gameObject.name);
-					ReduceLifeByOne();
 					LevelProperties.GetInstance().IncrementTouchCountByOne();
-					//GameController.GetInstance().AddScore()
+					OnPopperHit();
 				}
 			}
 			else{
-				Debug.Log ("No Hit");
+				Debug.Log ("No Hit " );
 			}
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.gameObject.transform.parent.parent.gameObject == gameObject || !IsActive()) {
+
+		if (col.gameObject.transform.parent.parent.gameObject == gameObject || !IsActive()||levelDelayer) {
 			return;
 		}
 		Debug.Log("Got hit from "+col.gameObject.name + " on "+gameObject.name);
 		col.gameObject.SetActive(false);
-		ReduceLifeByOne();
+		OnPopperHit();
 	}
 
-	public void ReduceLifeByOne() {
+	private void ReduceLifeByOne() {
 		if (life<0 || !IsActive()) {
 			Debug.LogError("Life is <=0 or state is not active. "+gameObject.name +" state "+currentState);
 			return;
@@ -201,6 +258,7 @@ public class PopperProperties : MonoBehaviour {
 	}
 
 	public bool IsActive() {
-		return currentState == POPPER_STATE.ACTIVE;
+		return (currentState == POPPER_STATE.ACTIVE && 
+			GameController.GetInstance().GetGameState()==GameController.GAME_STATE.GAME_GAMEPLAY);
 	}
 }
