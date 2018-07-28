@@ -6924,10 +6924,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevelScore: 0
   totalLevelScore: 30
-  totalTouches: 3
+  totalTouches: 1
   levelId: 0
   touchCount: 0
   popperCount: 0
+  isLevelCleared: 0
 --- !u!114 &114912444211183780
 MonoBehaviour:
   m_ObjectHideFlags: 1

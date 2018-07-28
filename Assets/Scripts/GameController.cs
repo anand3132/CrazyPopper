@@ -63,9 +63,9 @@ public class GameController : MonoBehaviour {
 		gameMainTaps+=_taps;
 	}
 
-	public void ReduceTaps(int _taps){
-		gameMainTaps-=_taps;
-	}
+//	public void ReduceTaps(int _taps){
+//		gameMainTaps-=_taps;
+//	}
 
     public int GetScore() {
         return gameMainScore;

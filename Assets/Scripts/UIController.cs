@@ -43,10 +43,9 @@ public class UIController : MonoBehaviour {
         if (GameController.GetInstance().GetGameState() == GameController.GAME_STATE.GAME_GAMEPLAY &&
            LevelProperties.GetInstance() != null) {
             currentLevelScore.text = LevelProperties.GetInstance().currentLevelScore.ToString();
-            touchCount.text = ((LevelProperties.GetInstance().totalTouches -
-				LevelProperties.GetInstance().touchCount)
-				+GameController.GetInstance().GetTouchCount()).ToString();
-        }
+			int tmp=(LevelProperties.GetInstance().totalTouches - LevelProperties.GetInstance().touchCount);
+			touchCount.text = (tmp < 0 ? 0 : tmp).ToString ();
+        } 
     }
 
     public void LevelOnClick(int selectedLevel) {

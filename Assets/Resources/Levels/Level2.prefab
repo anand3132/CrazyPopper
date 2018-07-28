@@ -6085,7 +6085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1036854794544552}
   yelloPopper: {fileID: 1632800081933746}
@@ -6139,7 +6139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1803457778288764}
   yelloPopper: {fileID: 1934396917084822}
@@ -6404,7 +6404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1840248271587242}
   yelloPopper: {fileID: 1671588486335572}
@@ -6458,7 +6458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1544954341423924}
   yelloPopper: {fileID: 1982716924972272}
@@ -6638,7 +6638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1646256942545590}
   yelloPopper: {fileID: 1332387488170526}
@@ -6667,7 +6667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1822990372121076}
   yelloPopper: {fileID: 1178045169374294}
@@ -6724,7 +6724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1651845041608822}
   yelloPopper: {fileID: 1756517395542792}
@@ -6845,7 +6845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1760751258339778}
   yelloPopper: {fileID: 1824664717094544}
@@ -6963,7 +6963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1261573280380364}
   yelloPopper: {fileID: 1131170439230572}
@@ -7020,7 +7020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1896692167620924}
   yelloPopper: {fileID: 1934740479888924}

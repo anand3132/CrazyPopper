@@ -25,8 +25,12 @@ public class LevelProperties : MonoBehaviour {
     void Start() {
         popperCount = gameObject.GetComponentsInChildren<PopperProperties>().Length;
         touchCount = 0;
-        levelId = 1;
         currentLevelScore = (totalLevelScore * levelId) - (touchCount * 2);
+		Debug.Log("Level id"+levelId);
+		if(levelId==1)
+			totalTouches=5;
+		else
+			totalTouches=GameController.GetInstance().GetTouchCount();
 		isLevelCleared=false;
 
         if (instance) {
@@ -55,29 +59,29 @@ public class LevelProperties : MonoBehaviour {
 			UIController.GetInstance().popUpMessage.text = " Level Cleared !! ";
 		}
 		else{
-			UIController.GetInstance().popUpMessage.text = " you Lost!!"+popperCount;
+			UIController.GetInstance().popUpMessage.text = " You Lost!! "+popperCount+" Still left" ;
 		}
 	}
 
     public void IncrementTouchCountByOne() {
         touchCount++;
 
-        if (touchCount >= totalTouches) {
+        if (touchCount > totalTouches) {
             if (popperCount == 0) {
                 currentLevelScore = (totalLevelScore * levelId) - (touchCount * 2);
 				isLevelCleared=true;
-				StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
-			}
-			else
+			} else {
 				isLevelCleared=false;
+			}
+				StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
 
-            Debug.Log("Current Level Score: " + currentLevelScore);
+			Debug.Log("popperCount " + popperCount+"TouchCount "+touchCount);
 		} else if(popperCount==0) {
+			isLevelCleared=true;
 			StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
-			isLevelCleared=false;
 		}
 		else{
-			Debug.Log(" Total touch "+touchCount+" popperCount "+popperCount);
+			Debug.Log(" Total touch "+touchCount+" + "+totalTouches+" popperCount "+popperCount);
 
 		}
     }

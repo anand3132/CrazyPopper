@@ -37,6 +37,7 @@ public class LevelSelection : MonoBehaviour {
             currentLoadedLevel.SetActive(false);
         }
         currentLoadedLevel = Instantiate(Resources.Load(("Levels/Level" + level).Trim()), gameObject.transform) as GameObject;
+		currentLoadedLevel.GetComponent<LevelProperties>().levelId=level;
         if (currentLoadedLevel==null) {
             Debug.LogError("Level load error.");
             return;
@@ -61,27 +62,29 @@ public class LevelSelection : MonoBehaviour {
         if (_score > 20) {
             levelSelector[1].interactable = true;
         }
-        if (_score > 40) {
+        if (_score > 50) {
             levelSelector[2].interactable = true;
         }
-        if (_score > 80) {
+        if (_score > 150) {
             levelSelector[3].interactable = true;
         }
-        if (_score > 100) {
+        if (_score > 200) {
             levelSelector[4].interactable = true;
         }
-        if (_score > 140) {
+        if (_score > 340) {
             levelSelector[5].interactable = true;
         }
-        if (_score > 200) {
+        if (_score > 400) {
             levelSelector[6].interactable = true;
         }
     }
 
     public void OnLevelExit(bool isScoreUpdated) {
+		int touchesleft=LevelProperties.GetInstance().totalTouches-LevelProperties.GetInstance().touchCount;
 		if (isScoreUpdated){
             GameController.GetInstance().AddScore(LevelProperties.GetInstance().currentLevelScore);
-			GameController.GetInstance().AddTaps(LevelProperties.GetInstance().touchCount);
+				GameController.GetInstance().AddTaps(touchesleft);
+				Debug.Log("Adde touches "+touchesleft);
 		}
         UnloadCurrentLevel();
         GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_LEVEL_SELECT);

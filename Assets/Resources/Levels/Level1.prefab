@@ -5096,7 +5096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevelScore: 0
   totalLevelScore: 30
-  totalTouches: 10
+  totalTouches: 1
   levelId: 0
   touchCount: 0
   popperCount: 0
