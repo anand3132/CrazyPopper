@@ -470,10 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e654457cacfb34743b2a678fbffb47d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAXLEVEL: 6
   currentState: 5
   previousState: 5
-  gameTouchCount: 0
   gameMainScore: 0
 --- !u!4 &104736333
 Transform:
@@ -888,7 +886,7 @@ GameObject:
   - component: {fileID: 518476672}
   - component: {fileID: 518476671}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PopupMessege
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -924,7 +922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7941176, g: 0.12262113, b: 0.6922353, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -944,9 +942,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Level Completed!!!
-
-'
+  m_Text: 
 --- !u!222 &518476672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2645,7 +2641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1706531330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2892,6 +2888,7 @@ MonoBehaviour:
   mainScoreText: {fileID: 1097814387}
   touchCount: {fileID: 746117787}
   currentLevelScore: {fileID: 711869877}
+  popUpMessage: {fileID: 518476671}
 --- !u!1 &1781913561
 GameObject:
   m_ObjectHideFlags: 0
@@ -3435,12 +3432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b755f6ec26aa042fda222ad747634e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   currentLoadedLevel: {fileID: 0}
 --- !u!1 &2059061200
 GameObject:
