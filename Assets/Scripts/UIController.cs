@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//This class controls diffrent UI Behaviors in the game
 public class UIController : MonoBehaviour {
     public static UIController instance;
     public GameObject levelSelectMenu;
     public GameObject popUpMenu;
     public GameObject HUDMenue;
     public GameObject WelcomeMenu;
+	[Space]
     public Text mainScoreText;
     public Text touchCount;
     public Text currentLevelScore;
 	public Text popUpMessage;
+	[Space]
+	public Button HUDmuteButton;
+	public Button pauseButton;
+	private bool  pauseSwitch=false;
+	private bool muteSwitch=false;
+	private float welcomScreenDelay=2f;
+
     private UIController() {
         // Singleton
     }
@@ -21,7 +30,7 @@ public class UIController : MonoBehaviour {
         return instance;
     }
 
-    void Start() {
+    private void Start() {
         if (instance) {
             Destroy(gameObject);
             Debug.LogError("UIController Already initialised");
@@ -29,17 +38,11 @@ public class UIController : MonoBehaviour {
             UIController.instance = this;
         }
         ResetMenue();
-        StartCoroutine("WelcomeScreen", 0.1f);
+		StartCoroutine("WelcomeScreen", welcomScreenDelay);
         mainScoreText.text = GameController.GetInstance().GetScore().ToString();
     }
 
-    IEnumerator WelcomeScreen(float delay) {
-        WelcomeMenu.SetActive(true);
-        yield return new WaitForSeconds(delay);
-        GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_LEVEL_SELECT);
-    }
-
-    void Update() {
+    private void Update() {
         if (GameController.GetInstance().GetGameState() == GameController.GAME_STATE.GAME_GAMEPLAY &&
            LevelProperties.GetInstance() != null) {
             currentLevelScore.text = LevelProperties.GetInstance().currentLevelScore.ToString();
@@ -48,6 +51,14 @@ public class UIController : MonoBehaviour {
         } 
     }
 
+	//show Welcome screen with Delay time
+	IEnumerator WelcomeScreen(float delay) {
+		WelcomeMenu.SetActive(true);
+		yield return new WaitForSeconds(delay);
+		GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_LEVEL_SELECT);
+	}
+
+	//level Selection button click events
     public void LevelOnClick(int selectedLevel) {
         if (selectedLevel > LevelSelection.GetInstance().GetMaxLevel()) {
             Debug.Log("Max Level" + selectedLevel + ">" + LevelSelection.GetInstance().GetMaxLevel());
@@ -61,8 +72,41 @@ public class UIController : MonoBehaviour {
     public void PopupNextOnClick() {
 		LevelSelection.GetInstance().OnLevelExit(LevelProperties.GetInstance().isLevelCleared);
     }
+		
+	public void MuteOnClick(){
+		Debug.Log("onclicked");
+		if(muteSwitch){
+			AudioController.GetInstance().PlayBGM();
+			muteSwitch=!muteSwitch;
+			HUDmuteButton.GetComponent<Image>().color=Color.green;
+		}
+		else
+		{
+			AudioController.GetInstance().PauseBGM();
+			muteSwitch=!muteSwitch;
+			HUDmuteButton.GetComponent<Image>().color=Color.red;
 
-    void ResetMenue() {
+		}
+	}
+
+	public void PauseOnClick(){
+		if(pauseSwitch) {	
+			pauseSwitch= !pauseSwitch;
+			pauseButton.GetComponentInChildren<Text>().fontStyle=FontStyle.Normal;
+			pauseButton.GetComponentInChildren<Text>().color=Color.red;
+			pauseButton.GetComponent<Image>().color=Color.green;
+			GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_GAMEPLAY);
+
+		} else{
+			pauseSwitch= !pauseSwitch;
+			pauseButton.GetComponentInChildren<Text>().fontStyle=FontStyle.Bold;
+			pauseButton.GetComponentInChildren<Text>().color=Color.green;
+			pauseButton.GetComponent<Image>().color=Color.red;
+			GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.Game_PAUSE);
+		}
+	}
+
+    private void ResetMenue() {
         WelcomeMenu.SetActive(false);
         levelSelectMenu.SetActive(false);
         HUDMenue.SetActive(false);
@@ -87,6 +131,13 @@ public class UIController : MonoBehaviour {
             case GameController.GAME_STATE.GAME_RESULTS: {
                     popUpMenu.SetActive(true);
                 }
+			break;
+			case GameController.GAME_STATE.Game_PAUSE:
+			{
+				HUDMenue.SetActive(true);
+				mainScoreText.text = GameController.GetInstance().GetScore().ToString();
+				touchCount.text=GameController.GetInstance().GetTouchCount().ToString();
+			}
                 break;
         }
     }

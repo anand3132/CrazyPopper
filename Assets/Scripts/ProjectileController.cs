@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This class sets Projectile behavior Properties
 public class ProjectileController : MonoBehaviour {
     public void StartExplotion() {
         ProjectileProperties.PRO_DRIECTION[] directions = {
@@ -24,7 +25,7 @@ public class ProjectileController : MonoBehaviour {
          }
     }
 
-    public void OnCollisionEnter2D(Collision2D coll) {
+	public void OnTriggerEnter2D(Collider2D coll) {
         Debug.Log("someting hit");
     }
 }

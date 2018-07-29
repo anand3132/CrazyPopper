@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//This class contain current Level Properties
 public class LevelProperties : MonoBehaviour {
     public int currentLevelScore;
     public int totalLevelScore = 30;
@@ -22,7 +23,7 @@ public class LevelProperties : MonoBehaviour {
         return instance;
     }
 
-    void Start() {
+    private void Start() {
         popperCount = gameObject.GetComponentsInChildren<PopperProperties>().Length;
         touchCount = 0;
         currentLevelScore = (totalLevelScore * levelId) - (touchCount * 2);
@@ -40,6 +41,7 @@ public class LevelProperties : MonoBehaviour {
             LevelProperties.instance = this;
         }
     }
+
     public void DecrementPopperCountByOne() {
         --popperCount;
         if (popperCount < 0) {
@@ -57,9 +59,12 @@ public class LevelProperties : MonoBehaviour {
 		GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_RESULTS);
 		if(isLevelCleared){
 			UIController.GetInstance().popUpMessage.text = " Level Cleared !! ";
+			AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Level_Complete);
 		}
 		else{
 			UIController.GetInstance().popUpMessage.text = " You Lost!! "+popperCount+" Still left" ;
+			AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Level_Failed);
+
 		}
 	}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This class controls diffrent game states in the game
 public class GameController : MonoBehaviour {
     public enum GAME_STATE {
         GAME_WELCOME

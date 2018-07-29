@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PopperProperties : MonoBehaviour {
+	
     public enum POPPER_TYPE {
         POPPER_PURPLE
         , POPPER_YELLOW
@@ -20,6 +21,7 @@ public class PopperProperties : MonoBehaviour {
     public POPPER_TYPE currentPoperType = POPPER_TYPE.POPPER_PURPLE;
     [SerializeField]
     int life = 1;
+
     private bool levelDelayer;
     public GameObject bluePopper;
     public GameObject yelloPopper;
@@ -109,6 +111,7 @@ public class PopperProperties : MonoBehaviour {
 					LevelProperties.GetInstance().DecrementPopperCountByOne();
                     currentPopper = explotion;
                     SetState(POPPER_STATE.DESTROY);
+					AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Popup);
                 }
                 break;
             case 1: {
@@ -138,30 +141,32 @@ public class PopperProperties : MonoBehaviour {
     }
 
     void Update() {
-        OnInput();
-        switch (currentState) {
-            case POPPER_STATE.ACTIVE: {
-                    eyeScale += eyeScaleAnimSpeed * Time.deltaTime;
-                    if (eyeScale > eyeScaleAnimThreshold) {
-                        eyeScale = -eyeScale;
-                    }
-                    var absScale = Mathf.Abs(eyeScale);
-                    leftEye.transform.localScale = leftEyeInitScale + Vector3.one * absScale;
-                    rightEye.transform.localScale = rightEyeInitScale + Vector3.one * -absScale;
-                    break;
-                }
-        }
+		if(GameController.GetInstance().GetGameState()!=GameController.GAME_STATE.Game_PAUSE){
+	        OnInput();
+	        switch (currentState) {
+	            case POPPER_STATE.ACTIVE: {
+	                    eyeScale += eyeScaleAnimSpeed * Time.deltaTime;
+	                    if (eyeScale > eyeScaleAnimThreshold) {
+	                        eyeScale = -eyeScale;
+	                    }
+	                    var absScale = Mathf.Abs(eyeScale);
+	                    leftEye.transform.localScale = leftEyeInitScale + Vector3.one * absScale;
+	                    rightEye.transform.localScale = rightEyeInitScale + Vector3.one * -absScale;
+	                    break;
+	                }
+	        }
 
-        if (IsActive() || currentState == POPPER_STATE.INACTIVE) {
-            // pluck
-            if (plukScale > 0.0f) {
-                plukScale -= plukScaleSpeed * Time.deltaTime;
-                if (plukScale < 0.0f) {
-                    plukScale = 0.0f;
-                }
-                gameObject.transform.localScale = initScale + Vector3.one * plukScale;
-            }
-        }
+	        if (IsActive() || currentState == POPPER_STATE.INACTIVE) {
+	            // pluck
+	            if (plukScale > 0.0f) {
+	                plukScale -= plukScaleSpeed * Time.deltaTime;
+	                if (plukScale < 0.0f) {
+	                    plukScale = 0.0f;
+	                }
+	                gameObject.transform.localScale = initScale + Vector3.one * plukScale;
+	            }
+	        }
+		}
     }
 
     public void DoPluk() {

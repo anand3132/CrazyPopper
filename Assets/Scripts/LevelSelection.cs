@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//class specifies Level Loading and unloading behaviour
 public class LevelSelection : MonoBehaviour {
     public GameObject currentLoadedLevel = null;
     public static LevelSelection instance;
@@ -89,4 +90,5 @@ public class LevelSelection : MonoBehaviour {
         UnloadCurrentLevel();
         GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_LEVEL_SELECT);
     }
+
 }
