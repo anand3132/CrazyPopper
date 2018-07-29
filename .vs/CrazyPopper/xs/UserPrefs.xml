@@ -1,0 +1,21 @@
+﻿<Properties StartupConfiguration="{D19DB36A-B327-8340-9B50-E80994AF009A}|Unit Tests">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PopperProperties.cs">
+    <Files>
+      <File FileName="Assets/Scripts/AudioController.cs" Line="9" Column="2" />
+      <File FileName="Assets/Scripts/ProjectileController.cs" Line="11" Column="28" />
+      <File FileName="Assets/Scripts/PopperProperties.cs" Line="207" Column="40" />
+      <File FileName="Assets/Scripts/ProjectileProperties.cs" Line="37" Column="3" />
+      <File FileName="Assets/Scripts/UIController.cs" Line="17" Column="21" />
+      <File FileName="Assets/Scripts/LevelProperties.cs" Line="19" Column="24" />
+      <File FileName="Assets/Scripts/LevelSelection.cs" Line="69" Column="25" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="23" Column="31" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

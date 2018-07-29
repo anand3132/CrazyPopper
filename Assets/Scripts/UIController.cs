@@ -6,21 +6,27 @@ using UnityEngine.UI;
 //This class controls diffrent UI Behaviors in the game
 public class UIController : MonoBehaviour {
     public static UIController instance;
+
+	// menus
     public GameObject levelSelectMenu;
     public GameObject popUpMenu;
     public GameObject HUDMenue;
     public GameObject WelcomeMenu;
+
+	// score texts
 	[Space]
     public Text mainScoreText;
-    public Text touchCount;
+    public Text currentTouchCount;
     public Text currentLevelScore;
 	public Text popUpMessage;
+
+	// hud buttons and vars
 	[Space]
 	public Button HUDmuteButton;
 	public Button pauseButton;
 	private bool  pauseSwitch=false;
 	private bool muteSwitch=false;
-	private float welcomScreenDelay=2f;
+	private float welcomScreenDelay=2.0f;
 
     private UIController() {
         // Singleton
@@ -45,9 +51,8 @@ public class UIController : MonoBehaviour {
     private void Update() {
         if (GameController.GetInstance().GetGameState() == GameController.GAME_STATE.GAME_GAMEPLAY &&
            LevelProperties.GetInstance() != null) {
-            currentLevelScore.text = LevelProperties.GetInstance().currentLevelScore.ToString();
-			int tmp=(LevelProperties.GetInstance().totalTouches - LevelProperties.GetInstance().touchCount);
-			touchCount.text = (tmp < 0 ? 0 : tmp).ToString ();
+			currentLevelScore.text = LevelProperties.GetInstance().GetLevelScore().ToString();
+			currentTouchCount.text=LevelProperties.GetInstance().GetLevelTouch().ToString();
         } 
     }
 
@@ -120,7 +125,7 @@ public class UIController : MonoBehaviour {
             case GameController.GAME_STATE.GAME_GAMEPLAY: {
                     HUDMenue.SetActive(true);
                     mainScoreText.text = GameController.GetInstance().GetScore().ToString();
-					touchCount.text=GameController.GetInstance().GetTouchCount().ToString();
+					currentTouchCount.text=GameController.GetInstance().GetTouchCount().ToString();
                 }
                 break;
             case GameController.GAME_STATE.GAME_LEVEL_SELECT: {
@@ -136,7 +141,7 @@ public class UIController : MonoBehaviour {
 			{
 				HUDMenue.SetActive(true);
 				mainScoreText.text = GameController.GetInstance().GetScore().ToString();
-				touchCount.text=GameController.GetInstance().GetTouchCount().ToString();
+				currentTouchCount.text=GameController.GetInstance().GetTouchCount().ToString();
 			}
                 break;
         }

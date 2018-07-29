@@ -16,8 +16,11 @@ public class GameController : MonoBehaviour {
     public static GameController instance;
     [SerializeField]
     private GAME_STATE currentState = GAME_STATE.GAME_STATE_MAX;
+
+	// for undo. Not yet implemented.
     [SerializeField]
     private GAME_STATE previousState = GAME_STATE.GAME_STATE_MAX;
+
     [SerializeField]
     private int gameMainScore;
 	private int gameMainTaps;
@@ -27,7 +30,6 @@ public class GameController : MonoBehaviour {
     }
 
     void Start() {
-        PlayerPrefs.SetInt("score", 0);//for test purpose
         if (instance) {
             Destroy(gameObject);
             Debug.LogError("Already initialised");
@@ -38,8 +40,8 @@ public class GameController : MonoBehaviour {
         if (PlayerPrefs.GetInt("score", 0) < 0)
             PlayerPrefs.SetInt("score", 0);
 		
-		if (PlayerPrefs.GetInt("score", 0) < 0)
-			PlayerPrefs.SetInt("score", 0);
+		if (PlayerPrefs.GetInt("taps", 0) < 0)
+			PlayerPrefs.SetInt("taps", 5);
 
         gameMainScore = PlayerPrefs.GetInt("score");
 		gameMainTaps=PlayerPrefs.GetInt("taps");
@@ -61,7 +63,7 @@ public class GameController : MonoBehaviour {
     }
 
 	public void AddTaps(int _taps){
-		gameMainTaps+=_taps;
+		gameMainTaps=_taps;
 	}
 
 //	public void ReduceTaps(int _taps){
@@ -84,4 +86,9 @@ public class GameController : MonoBehaviour {
     public GAME_STATE GetGameState() {
         return currentState;
     }
+	void OnDisable(){
+		PlayerPrefs.SetInt("score", gameMainScore);
+		PlayerPrefs.SetInt("taps", gameMainTaps);
+
+	}
 }

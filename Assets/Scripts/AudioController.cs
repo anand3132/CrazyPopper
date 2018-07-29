@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class AudioController : MonoBehaviour {
 	public static AudioController instance;
+
+	// audio clips and sources for game.
 	public AudioClip au_Level_Failed;
 	public AudioClip au_Level_Complete;
 	public AudioClip au_Popup;
 	public AudioSource MyAudioSource;
 	public AudioSource BackGroundSource;
+
 	private AudioController(){}
 
 	public static AudioController GetInstance(){
@@ -16,7 +19,6 @@ public class AudioController : MonoBehaviour {
 	}
 
 	void Start(){
-		
 		if(instance) {
 			Destroy(gameObject);
 			Debug.LogError("Already initialised");

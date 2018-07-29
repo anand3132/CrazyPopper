@@ -11,7 +11,7 @@ public class ProjectileController : MonoBehaviour {
             ProjectileProperties.PRO_DRIECTION.TOP, 
             ProjectileProperties.PRO_DRIECTION.BOTTOM
         };
-
+		// set the four projectile directions when activated.
         for (int i = 0; i < directions.Length; i++) {
             if (gameObject.transform.childCount<=i) {
                 Debug.LogError("Child count is less than directions. Please check the prefab.");

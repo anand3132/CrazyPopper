@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Definision of popper object.
 public class PopperProperties : MonoBehaviour {
 	
     public enum POPPER_TYPE {
@@ -10,6 +11,7 @@ public class PopperProperties : MonoBehaviour {
         , POPPER_BLUE
         , TYPE_MAX
     }
+
     public enum POPPER_STATE {
         ACTIVE
         , INACTIVE
@@ -23,14 +25,18 @@ public class PopperProperties : MonoBehaviour {
     int life = 1;
 
     private bool levelDelayer;
+
+	// Popper types
     public GameObject bluePopper;
     public GameObject yelloPopper;
     public GameObject purplePopper;
 
+	// 
     public GameObject explotion;
     public GameObject projectileParent;
     public GameObject currentPopper;
 
+	// eye scale logic vars
     public GameObject leftEye;
     public GameObject rightEye;
     public float eyeScale = 1.0f;
@@ -39,15 +45,19 @@ public class PopperProperties : MonoBehaviour {
     Vector3 leftEyeInitScale;
     Vector3 rightEyeInitScale;
 
+	// pluk effects var
     public float plukScale = 0.2f;
     public float plukScaleSpeed = 1.5f;
     public Vector3 initScale;
 
+	// time to enable the popper logic to block the touches by mistake on initial load.
 	private const float ENABLEPOPPERAFTER = 1.5f;
 
+	// states
     public POPPER_STATE currentState = POPPER_STATE.STATE_MAX;
     public POPPER_STATE prevState = POPPER_STATE.STATE_MAX;
 
+	// init functions
     void Awake() {
         levelDelayer = true;
     }
@@ -81,6 +91,48 @@ public class PopperProperties : MonoBehaviour {
 		StartCoroutine("EnablePopperAfterDelay", ENABLEPOPPERAFTER);
     }
 
+	// update loop
+	void Update() {
+		if(GameController.GetInstance().GetGameState()==GameController.GAME_STATE.Game_PAUSE){
+			return;
+		}
+
+		ProcessInput();
+		switch (currentState) {
+		case POPPER_STATE.ACTIVE: {
+				eyeScale += eyeScaleAnimSpeed * Time.deltaTime;
+				if (eyeScale > eyeScaleAnimThreshold) {
+					eyeScale = -eyeScale;
+				}
+				var absScale = Mathf.Abs(eyeScale);
+				leftEye.transform.localScale = leftEyeInitScale + Vector3.one * absScale;
+				rightEye.transform.localScale = rightEyeInitScale + Vector3.one * -absScale;
+				break;
+			}
+		}
+
+		if (IsActive() || currentState == POPPER_STATE.INACTIVE) {
+			// pluck
+			if (plukScale > 0.0f) {
+				plukScale -= plukScaleSpeed * Time.deltaTime;
+				if (plukScale < 0.0f) {
+					plukScale = 0.0f;
+				}
+				gameObject.transform.localScale = initScale + Vector3.one * plukScale;
+			}
+		}
+	}
+
+	// set-get
+	public void SetPoperType(POPPER_TYPE setType) {
+		currentPoperType = setType;
+	}
+
+	public POPPER_TYPE getpoperType() {
+		return currentPoperType;
+	}
+
+	// state logic
     public void SetState(POPPER_STATE _state) {
         if (currentState != _state) {
             POPPER_STATE _prevState = currentState;
@@ -140,53 +192,38 @@ public class PopperProperties : MonoBehaviour {
         projectileParent.gameObject.SetActive(false);
     }
 
-    void Update() {
-		if(GameController.GetInstance().GetGameState()!=GameController.GAME_STATE.Game_PAUSE){
-	        OnInput();
-	        switch (currentState) {
-	            case POPPER_STATE.ACTIVE: {
-	                    eyeScale += eyeScaleAnimSpeed * Time.deltaTime;
-	                    if (eyeScale > eyeScaleAnimThreshold) {
-	                        eyeScale = -eyeScale;
-	                    }
-	                    var absScale = Mathf.Abs(eyeScale);
-	                    leftEye.transform.localScale = leftEyeInitScale + Vector3.one * absScale;
-	                    rightEye.transform.localScale = rightEyeInitScale + Vector3.one * -absScale;
-	                    break;
-	                }
-	        }
-
-	        if (IsActive() || currentState == POPPER_STATE.INACTIVE) {
-	            // pluck
-	            if (plukScale > 0.0f) {
-	                plukScale -= plukScaleSpeed * Time.deltaTime;
-	                if (plukScale < 0.0f) {
-	                    plukScale = 0.0f;
-	                }
-	                gameObject.transform.localScale = initScale + Vector3.one * plukScale;
-	            }
-	        }
-		}
-    }
-
     public void DoPluk() {
         plukScale = 0.45f;
     }
-
-    public void SetPoperType(POPPER_TYPE setType) {
-        currentPoperType = setType;
-    }
-
-    public POPPER_TYPE getpoperType() {
-        return currentPoperType;
-    }
-
+		
     IEnumerator EnablePopperAfterDelay(float delay) {
         yield return new WaitForSeconds(delay);
         levelDelayer = false;
     }
 
-    void OnInput() {
+	private void ReduceLifeByOne() {
+		if (life < 0 || !IsActive()) {
+			Debug.LogError("Life is <=0 or state is not active. " + gameObject.name + " state " + currentState);
+			return;
+		}
+
+		life--;
+		OnReduceLife();
+		if (life <= 0) {
+			SetState(POPPER_STATE.DESTROY);
+		}
+	}
+
+	private void OnReduceLife() {
+		DoPluk();
+	}
+
+	public bool IsActive() {
+		return (currentState == POPPER_STATE.ACTIVE &&
+			GameController.GetInstance().GetGameState() == GameController.GAME_STATE.GAME_GAMEPLAY);
+	}
+
+    void ProcessInput() {
         if (!IsActive() || levelDelayer) {
             return;
         }
@@ -214,27 +251,5 @@ public class PopperProperties : MonoBehaviour {
         col.gameObject.SetActive(false);
 		//col.gameObject.GetComponent<PopperProperties>().SetState(po);
         OnPopperHit();
-    }
-
-    private void ReduceLifeByOne() {
-        if (life < 0 || !IsActive()) {
-            Debug.LogError("Life is <=0 or state is not active. " + gameObject.name + " state " + currentState);
-            return;
-        }
-
-        life--;
-        OnReduceLife();
-        if (life <= 0) {
-            SetState(POPPER_STATE.DESTROY);
-        }
-    }
-
-    private void OnReduceLife() {
-        DoPluk();
-    }
-
-    public bool IsActive() {
-        return (currentState == POPPER_STATE.ACTIVE &&
-            GameController.GetInstance().GetGameState() == GameController.GAME_STATE.GAME_GAMEPLAY);
     }
 }

@@ -5,14 +5,18 @@ using UnityEngine.UI;
 
 //This class contain current Level Properties
 public class LevelProperties : MonoBehaviour {
-    public int currentLevelScore;
-    public int totalLevelScore = 30;
-    public int totalTouches;
-    public int levelId;
-    public int touchCount;
-    public int popperCount;
-	public bool isLevelCleared;
-	private const float ENDDELAY = 1.0f;
+    public int currentLevelID;
+    private int currentLevelScore;
+    private int currentTouchCount;
+
+    //Each level contain specific no of touches and score
+    public int givenLevelScore;
+    public int givenLevelTouch;
+
+    private int totalLevelTouches;
+    private int currentpopperCount;
+    public bool isLevelCleared;
+    private const float ENDDELAY = 1.0f;
     public static LevelProperties instance;
 
     private LevelProperties() {
@@ -24,15 +28,14 @@ public class LevelProperties : MonoBehaviour {
     }
 
     private void Start() {
-        popperCount = gameObject.GetComponentsInChildren<PopperProperties>().Length;
-        touchCount = 0;
-        currentLevelScore = (totalLevelScore * levelId) - (touchCount * 2);
-		Debug.Log("Level id"+levelId);
-		if(levelId==1)
-			totalTouches=5;
-		else
-			totalTouches=GameController.GetInstance().GetTouchCount();
-		isLevelCleared=false;
+        // score for the current loaded level.
+        currentTouchCount = 0;
+        currentpopperCount = gameObject.GetComponentsInChildren<PopperProperties>().Length;
+        currentLevelScore = (givenLevelScore * currentLevelID) - (currentTouchCount * 2);
+
+        Debug.Log("Level id" + currentLevelID);
+        totalLevelTouches = (GameController.GetInstance().GetTouchCount() + givenLevelTouch);
+        isLevelCleared = false;
 
         if (instance) {
             Destroy(gameObject);
@@ -43,55 +46,60 @@ public class LevelProperties : MonoBehaviour {
     }
 
     public void DecrementPopperCountByOne() {
-        --popperCount;
-        if (popperCount < 0) {
-           // popperCount = 0;
+        --currentpopperCount;
+        if (currentpopperCount < 0) {
+            currentpopperCount = 0;
             Debug.LogError("popperCount < 0, reseting to 0.");
         }
-		if(popperCount==0){
-			isLevelCleared=true;
-			StartCoroutine("ShowResultsAfterDelay",ENDDELAY);
-		}
+        if (currentpopperCount == 0) {
+            isLevelCleared = true;
+            StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
+        }
     }
 
-	IEnumerator ShowResultsAfterDelay(float delay) {
-		yield return new WaitForSeconds(delay);
-		GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_RESULTS);
-		if(isLevelCleared){
-			UIController.GetInstance().popUpMessage.text = " Level Cleared !! ";
-			AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Level_Complete);
-		}
-		else{
-			UIController.GetInstance().popUpMessage.text = " You Lost!! "+popperCount+" Still left" ;
-			AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Level_Failed);
-
-		}
-	}
-
     public void IncrementTouchCountByOne() {
-        touchCount++;
+        currentTouchCount++;
 
-        if (touchCount > totalTouches) {
-            if (popperCount == 0) {
-                currentLevelScore = (totalLevelScore * levelId) - (touchCount * 2);
-				isLevelCleared=true;
-			} else {
-				isLevelCleared=false;
-			}
-				StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
+        if (currentTouchCount >= totalLevelTouches) {
+            if (currentpopperCount == 0) {
+                currentLevelScore = (givenLevelScore * currentLevelID) - (currentTouchCount * 2);
+                isLevelCleared = true;
+            } else {
+                isLevelCleared = false;
+            }
+            StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
 
-			Debug.Log("popperCount " + popperCount+"TouchCount "+touchCount);
-		} else if(popperCount==0) {
-			isLevelCleared=true;
-			StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
-		}
-		else{
-			Debug.Log(" Total touch "+touchCount+" + "+totalTouches+" popperCount "+popperCount);
+            Debug.Log("popperCount " + currentpopperCount + "TouchCount " + currentTouchCount);
+        } else if (currentpopperCount == 0) {
+            isLevelCleared = true;
+            StartCoroutine("ShowResultsAfterDelay", ENDDELAY);
+        } else {
+            Debug.Log(" Total touch " + currentTouchCount + " + " + totalLevelTouches + " popperCount " + currentpopperCount);
+        }
+    }
 
-		}
+    public int GetLevelScore() {
+        return currentLevelScore;
+    }
+
+    public int GetLevelTouch() {
+        return totalLevelTouches - currentTouchCount;
+    }
+
+    // delay the result screen.
+    IEnumerator ShowResultsAfterDelay(float delay) {
+        yield return new WaitForSeconds(delay);
+        GameController.GetInstance().ChangeGameState(GameController.GAME_STATE.GAME_RESULTS);
+        if (isLevelCleared) {
+            UIController.GetInstance().popUpMessage.text = " Level Cleared !! ";
+            AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Level_Complete);
+        } else {
+            UIController.GetInstance().popUpMessage.text = " You Lost!! " + currentpopperCount + " Still left";
+            AudioController.GetInstance().PlayAudio(AudioController.GetInstance().au_Level_Failed);
+        }
     }
 
     public bool IsPoperAllowed() {
-        return touchCount < totalTouches;
+        return currentTouchCount < totalLevelTouches;
     }
 }

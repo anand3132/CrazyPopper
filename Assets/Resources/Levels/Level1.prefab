@@ -5094,12 +5094,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf50439bdf87844be91da39cf12dfdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevelScore: 0
-  totalLevelScore: 30
-  totalTouches: 1
-  levelId: 0
-  touchCount: 0
-  popperCount: 0
+  currentLevelID: 1
+  givenLevelScore: 30
+  givenLevelTouch: 5
   isLevelCleared: 0
 --- !u!114 &114281818322510818
 MonoBehaviour:

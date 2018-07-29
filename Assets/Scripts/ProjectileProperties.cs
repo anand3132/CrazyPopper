@@ -4,7 +4,6 @@ using UnityEngine;
 
 //class specifies Projectile behaviour
 public class ProjectileProperties : MonoBehaviour {
-	
     public enum PRO_DRIECTION {
         LEFT
         , RIGHT
@@ -12,9 +11,10 @@ public class ProjectileProperties : MonoBehaviour {
         , BOTTOM
     }
 
+	// logic vars
     public Vector3 direction;
-    public float speed = 3;
-	private float distructionDelay=5f;
+    public float speed = 3.0f;
+	private float distructionDelay=5.0f;
 	private Transform startTranform;
     //set default direction to top
     public PRO_DRIECTION currentDirection = PRO_DRIECTION.TOP;
@@ -57,15 +57,5 @@ public class ProjectileProperties : MonoBehaviour {
         	gameObject.transform.Translate(direction * Time.deltaTime * speed);
 		}
     }
-
-	//checkes wether pojectile hit with poppers
-	public void OnTriggerEnter2D(Collider2D coll) {
-		if(coll.GetComponent<PopperProperties>() && coll.gameObject!=gameObject) {	
-			Debug.Log("someting hit "+coll.name);
-			//gameObject.SetActive(false);
-		} else {
-			Debug.Log("someting hit "+coll.name);
-		}
-	}
 
 }
