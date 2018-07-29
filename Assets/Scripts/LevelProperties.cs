@@ -16,7 +16,7 @@ public class LevelProperties : MonoBehaviour {
     private int totalLevelTouches;
     private int currentpopperCount;
     public bool isLevelCleared;
-    private const float ENDDELAY = 1.0f;
+    private const float ENDDELAY = 3.0f;
     public static LevelProperties instance;
 
     private LevelProperties() {
@@ -83,7 +83,8 @@ public class LevelProperties : MonoBehaviour {
     }
 
     public int GetLevelTouch() {
-        return totalLevelTouches - currentTouchCount;
+		int tmp=totalLevelTouches - currentTouchCount;
+		return (tmp < 0) ? 0 : tmp;
     }
 
     // delay the result screen.

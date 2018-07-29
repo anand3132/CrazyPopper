@@ -30,6 +30,10 @@ public class GameController : MonoBehaviour {
     }
 
     void Start() {
+		//For clearing the score and taps uncomment it!!
+		PlayerPrefs.SetInt("score",0);
+		PlayerPrefs.SetInt("taps",0);
+
         if (instance) {
             Destroy(gameObject);
             Debug.LogError("Already initialised");

@@ -6924,7 +6924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevelID: 3
   givenLevelScore: 30
-  givenLevelTouch: 2
+  givenLevelTouch: 3
   isLevelCleared: 0
 --- !u!114 &114912444211183780
 MonoBehaviour:
