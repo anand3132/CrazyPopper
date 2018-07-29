@@ -6842,7 +6842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a761f2b21e034b269467b246db32d44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoperType: 0
+  currentPoperType: 1
   life: 3
   bluePopper: {fileID: 1760751258339778}
   yelloPopper: {fileID: 1824664717094544}
